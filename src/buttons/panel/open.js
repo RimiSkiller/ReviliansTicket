@@ -60,7 +60,7 @@ module.exports = {
 					},
 					{
 						id: interaction.user.id,
-						allow: ['ViewChannel', 'AttachFiles'],
+						allow: ['ViewChannel', 'AttachFiles', 'SendMessages'],
 					},
 					{
 						id: staffRole,
