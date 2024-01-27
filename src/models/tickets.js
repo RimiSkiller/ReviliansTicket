@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const ticketSchema = new Schema({
+	ticketId: {
+		type: Number,
+		required: true,
+	},
 	member: {
 		type: String,
 		required: true,

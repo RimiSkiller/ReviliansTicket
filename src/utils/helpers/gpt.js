@@ -10,7 +10,7 @@ module.exports = async (promote, guildName) => {
 		messages: [
 			{
 				role: 'system',
-				content: `I want you to act as a Discord bot, I'll write you a scenario that may happen in Discord server called "${guildName}", you will send me a short message in Arabic only to reply to this scenario, users names must be in English. if you been given a channel id to mention you type "<#channel-id>" to mention the channel`,
+				content: `I want you to act as a Discord bot, I'll write you a scenario that may happen in Discord server called "${guildName}", you will send me a short message to reply to this scenario, users names must be in English. if you been given a channel id to mention you type "<#channel-id>" to mention the channel, the message must be in Arabic.`,
 			},
 			{
 				role: 'user',

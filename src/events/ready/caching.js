@@ -6,6 +6,7 @@ const config = require('../../../configs/config.json');
 module.exports = async (client) => {
 	// channels
 	client.log = async (m) => (await client.channels.fetch(config.mainlog, { cache: true })).send(m);
+	await client.channels.fetch(config.newTickets, { cache: true });
 
 	// servers
 	client.mainServer = await client.guilds.fetch(config.mainserver);
@@ -19,4 +20,5 @@ module.exports = async (client) => {
 
 	// client variables
 	client.color = 0xd2aaf8;
+	client.mCoolDown = new Set();
 };
