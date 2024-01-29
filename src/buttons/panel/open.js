@@ -64,7 +64,7 @@ module.exports = {
 					},
 					{
 						id: staffRole,
-						allow: ['ViewChannel', 'AttachFiles', 'UseApplicationCommands', 'ManageMessages'],
+						allow: ['ViewChannel', 'AttachFiles', 'UseApplicationCommands', 'ManageMessages', 'MentionEveryone'],
 						deny: ['SendMessages'],
 					},
 					{
@@ -72,6 +72,7 @@ module.exports = {
 						allow: ['ViewChannel', 'AttachFiles', 'UseApplicationCommands', 'ManageMessages', 'SendMessages'],
 					},
 				],
+				topic: `⨠ Ticket Id: ${ticketId},\n⨠ Member: <@${interaction.user.id}>,\n⨠ Reason: ${modalInteraction.fields.getField('reason').value},`,
 				rateLimitPerUser: 3,
 			}).then(async channel => {
 				const embed = new EmbedBuilder()
@@ -89,6 +90,8 @@ module.exports = {
 				modalInteraction.editReply('**● ' + await gpt(`a member opened a support ticket in the server, tell him to wait the staff and explain the problem he's facing in the meantime, mention the ticket channel with the id "${channel.id}" in a new line, don't mention the member, write the message in Arabic`, interaction.guild.name) + '**');
 				client.channels.cache.get(newTickets).send({ content: `<@&1200477671071698944>\n**<@${interaction.user.id}> opened a ticket(#${ticketId}) with reason of:**\n\`\`\`${modalInteraction.fields.getField('reason').value}\`\`\``, components: [new ActionRowBuilder().addComponents(new ButtonBuilder({ label: 'Check', style: ButtonStyle.Link, url: channel.url }))] });
 				await new Tickets({ member: interaction.user.id, channelId: channel.id, reason: modalInteraction.fields.getField('reason').value, ticketId: ticketId }).save();
+				client.mCoolDown.set(interaction.user.id, Date.now() + 180000);
+				setTimeout(() => client.mCoolDown.delete(interaction.user.id), 180000);
 			});
 		}
 		// await new Tickets({ member: interaction.user.id, channelId: interaction.channelId }).save();

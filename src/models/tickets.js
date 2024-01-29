@@ -21,6 +21,10 @@ const ticketSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	staff: {
+		type: String,
+		default: null,
+	},
 });
 
 module.exports = model('ticket', ticketSchema);
