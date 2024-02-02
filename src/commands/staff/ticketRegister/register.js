@@ -18,9 +18,10 @@ module.exports = async (client, ticketData) => {
 			{ name: '● Staff:', value: `<@${ticketData.staff}> (${ticketData.staff})` },
 			{ name: '● Opened:', value: `<t:${Math.floor(ticketData.openTime / 1000)}:f>` },
 			{ name: '● Closed:', value: `<t:${Math.floor(ticketData.closeTime / 1000)}:f>` },
-			{ name: '● Additional staff:', value: ticketData.addIds.length ? ticketData.addIds.map(id => `<@${id}>`).join(', ') : 'No additional staff' },
+			{ name: '● Additional Users:', value: ticketData.addIds.length ? ticketData.addIds.map(id => `<@${id}>`).join(', ') : 'No additional staff' },
 		)
 		.setFooter({ text: client.mainServer.name, iconURL: client.mainServer.iconURL() });
+	if (!ticketData.staff) return await channel.send({ embeds: [ticketEmbed], files: [ticketData.transcript] });
 	const b1 = new ButtonBuilder({ customId: 'ticketApprove', label: 'Approve', style: ButtonStyle.Success });
 	const b2 = new ButtonBuilder({ customId: 'ticketRefuse', label: 'Refuse', style: ButtonStyle.Danger });
 	await channel.send({ content: `## <@${ticketData.staff}> **\`#${staffTickets}\`**`, embeds: [ticketEmbed], files: [ticketData.transcript], components: [new ActionRowBuilder().addComponents(b1, b2)] });
